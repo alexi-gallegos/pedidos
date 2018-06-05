@@ -3,8 +3,8 @@
 <head>
     <!-- CSS -->
    
-    <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    <link rel="stylesheet" href="{{ secure_asset('css/bootstrap.css') }}">
+    <link rel="stylesheet" href="{{ secure_asset('css/app.css') }}">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.12/css/all.css" integrity="sha384-G0fIWCsCzJIMAVNQPfjH08cyYaUtMwjJwqiRKxxE/rx96Uroj1BtIQ6MLJuheaO9" crossorigin="anonymous">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -115,9 +115,9 @@
     
 </div> <!-- /container-fluid  -->
     <script src="https://js.pusher.com/4.1/pusher.min.js" defer></script>
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="{{ secure_asset('js/app.js') }}" defer></script>
     <script src="https://momentjs.com/downloads/moment-with-locales.js" defer></script>
-    <script src="{{ asset('js/chartjs.js') }}" defer></script>
+    <script src="{{ secure_asset('js/chartjs.js') }}" defer></script>
    
       
 </body>
