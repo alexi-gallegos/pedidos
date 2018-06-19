@@ -16,7 +16,7 @@
             <legend class=""><strong>Productos del Restaurante</strong></legend>
             </div>
             <div class="d-inline col-md-6">
-            <a class="btn btn-primary float-right" href="#" role="button" data-toggle="modal" data-target="#create" @click="clearErrors"><i class="fas fa-user-tie mr-2"></i>  Agregar Categoria</a>
+            <a class="btn btn-primary float-right" href="#" role="button" data-toggle="modal" data-target="#create" @click="clearErrors"><i class="fas fa-user-tie mr-2"></i>  Agregar Producto</a>
             </div>
             
                     <table class="table table-striped table-hover table-inverse">

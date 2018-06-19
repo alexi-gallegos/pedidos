@@ -27695,12 +27695,16 @@ var vm = new Vue({
         idNewPass : 0,
         finalizados: [],
         dataPusher: [],
+        type0 : null,  //tipo de reporte en CrearPDF
+        productsPDF : [], //Los productos para crear el PDF
+        totalMoney : 0, //Dinero total en PDF
         total: 0,
         mesa : '',
         dateFrom:'',
         dateTo:'',
         dateSearch: [],
         showDetail: [],
+        
         totales:[],
         newPosition : {'cargo' :'', 'descripcion' : ''},
         fillPosition : {'id': null, 'cargo' :'', 'descripcion' : ''},
@@ -27717,11 +27721,15 @@ var vm = new Vue({
         fillUser : {'id':'', 'nombre' : '', 'email':'', 'password':'','admin':0, 'trabajador':''},
         fillTable:{'id':'','numero_mesa':'', 'disponible':''},
         errors : [],
+        periodo : '',
         url:'',
         productos_object : [],
         productos : [],
         password : '', //password en newpass.blade.php
         desdeDate:'',
+        productosPDF : [],
+        cantidadesPDF:[],
+        preciosPDF:[],
         totalResults : 0,
         hastaDate:'',
         eliminar : {'delete' : 1, 'id' : ''}, 
@@ -28469,17 +28477,22 @@ var vm = new Vue({
 
              var start =  start1+' 00:00:00';
              var end =  end1+' 23:59:59';
+
+             var start_pdf = moment(start0).format('DD/MM/YYYY');
+             var end_pdf = moment(end0).format('DD/MM/YYYY');
+             vm.periodo = 'desde '+start_pdf+' hasta '+end_pdf;
+             console.log(vm.periodo);
              //console.log(type);
 
             }else if(type == 0){  //reporte diario
 
             var today = moment().utcOffset(-4);
             var today_formatted = moment(today).format('YYYY/MM/DD');
-            var tf = today_formatted+ ' 00:00:00';
-            var ef = today_formatted+ ' 23:59:59';
-            var start =  '2018/05/30 00:00:00'; //  cambiar por la variables
+            var start = today_formatted+ ' 00:00:00';
+            var end = today_formatted+ ' 23:59:59';
+            //console.log(`This is ${start} and ${end}`);
+             vm.periodo =  moment(today).locale('es').format('LL');
             
-            var end =  '2018/05/30 23:59:59'; //  cambiar por la variables
             
             
             }else if(type == 2){ //reporte mensual
@@ -28490,6 +28503,8 @@ var vm = new Vue({
 
                 var start =  start1+' 00:00:00';
                 var end =  end1+' 23:59:59';
+                vm.periodo = moment().locale('es').format('MMMM YYYY');
+                console.log(vm.periodo);
                
             }else if(type == 3){ //reporte anual
                 var  start0 =  moment().startOf('Year');
@@ -28499,6 +28514,10 @@ var vm = new Vue({
 
                 var start =  start1+' 00:00:00';
                 var end =  end1+' 23:59:59';
+
+                var y = moment().format('YYYY');
+                vm.periodo = 'Año '+y;
+                console.log(vm.periodo);
                
             }else if(type == 4){
 
@@ -28511,7 +28530,13 @@ var vm = new Vue({
                 }else{
                     var start =  start1+' 00:00:00';
                     var end =  end1+' 23:59:59';
-                    console.log(start+' '+end);
+                    var  start1 = moment(start0).format('DD/MM/YYYY');
+                    var  end1 = moment(end0).format('DD/MM/YYYY');
+
+                    vm.periodo = 'desde '+start1+' hasta '+end1;
+
+
+                    
                 }
 
                 
@@ -28529,34 +28554,18 @@ var vm = new Vue({
                     hasta : end
                 }
             }).then(response => {
-                   
+                
+
+                
+
 
                     if(response.data == 0 ) {
                         $.notify('Aún no hay registros en este periodo de tiempo.','warn');
                     }else{
-                        
-                        //  console.log(start1);
-                        //  console.log(end1);
-                        
-                        //console.log(this.productos_object);
-                        //console.log(this.productos_object[0].productos[0].nombre_producto);
-                        //  this.productos = this.productos_object.map(function (producto){
-                        //      return producto.nombre_producto;
-                        // });
-                        //console.log(this.productos);
-                        //console.log(precios_totales_chart);
-                        //         var arr = Object.keys(precios_totales_chart).map(function (key) { return '$'+precios_totales_chart[key].toLocaleString(); });
-                        //console.log(productos_chart);
-                        //         console.log(arr);
-
-                        
-                        
-                        // console.log(precios_chart);
-                        // console.log(arr);
-                        // console.log(productos_chart);
-                        
-
-                        // let procs = productos_chart.push(arr);
+                            var prs = [];
+                            this.type0 = type;
+                            this.totalMoney =  response.data[1];
+                      
                             var productos_chart = "";
                             var precios_chart = "";
                             var precios_totales_chart = "";
@@ -28566,7 +28575,37 @@ var vm = new Vue({
                             var precios_chart = Object.values(response.data[0]);
                             var precios_totales_chart = response.data[2];
 
-                            var arr = Object.keys(precios_totales_chart).map(function (key) { return precios_totales_chart[key]; });
+                            this.productosPDF = productos_chart;
+                            this.cantidadesPDF = precios_chart;
+                            this.preciosPDF = precios_totales_chart;  //productos
+                            
+
+
+
+                            var arr = Object.keys(precios_totales_chart).map(function (key) { return precios_totales_chart[key]; }); //precios totales de cada caetogoria, ejemplo completo en el dia $5000
+
+                            var arr2 = Object.keys(precios_totales_chart).map(function (key) { return precios_totales_chart[key].toLocaleString() ; }); //precios totales de cada caetogoria, ejemplo completo en el dia $5000
+                            
+                            var x = productos_chart.length;
+
+
+                            var prices_str = arr2.map(String);
+                            var cantidad_str = precios_chart.map(String);
+
+                            var procs = [];
+                            var temporary = [];
+                            
+                            for (let index = 0; index < x ; index++) {
+
+                                 temporary.push([productos_chart[index],cantidad_str[index],'$'+prices_str[index]]);
+
+                                procs = prs.concat(temporary);
+                                
+                            }
+
+                            this.productsPDF = procs;
+                            
+
                     
 
                         
@@ -28650,6 +28689,13 @@ var vm = new Vue({
 
                                 Chart.defaults.global.defaultFontFamily = "Lato";
                                 Chart.defaults.global.defaultFontSize = 18;
+                                Chart.plugins.register({
+                                    beforeDraw: function(chartInstance) {
+                                      var ctx = chartInstance.chart.ctx;
+                                      ctx.fillStyle = "white";
+                                      ctx.fillRect(0, 0, chartInstance.chart.width, chartInstance.chart.height);
+                                    }
+                                  });
 
                                 var cantidadData = {
                                 label: 'Cantidad Vendida',
@@ -28686,8 +28732,16 @@ var vm = new Vue({
                                     ],
                                     yAxes: [{
                                         ticks: {
-                                            beginAtZero: true
+                                            beginAtZero: true,
+                                            userCallback: function(label, index, labels) {
+                                                // when the floored value is the same as the value we have a whole number
+                                                if (Math.floor(label) === label) {
+                                                    return label;
+                                                }
+                           
+                                            },
                                         },
+                                        
                                     id: "y-axis-density"
                                     }, {
                                     id: "y-axis-gravity"
@@ -28706,16 +28760,98 @@ var vm = new Vue({
                                 options: chartOptions
                                 });
 
-                  
-
                     } //else
-
+                
 
             }).catch(error => {
-                console.log(error);
+                
             });
 
 
+
+    },
+
+    createPDF(){
+        var doc = new jsPDF();
+        var cantidades = vm.cantidadesPDF.map(String);
+
+        var today = moment().utcOffset(-4);
+
+        today = moment(today).locale('es').format('llll');
+        doc.setFontSize(7)
+        doc.text(2,4, today);
+        
+
+        var space = 10;
+
+        doc.setFontSize(12)
+        doc.text(14,12, 'Reporte Productos ');
+        doc.text(53,12, vm.periodo);
+       
+
+        if(this.type0 == 0){
+            var canvas = document.getElementById('myChartDia');
+        }else if(this.type0 == 1){
+        var canvas = document.getElementById('myChartSemana');
+        }else if(this.type0 == 2){
+            var canvas = document.getElementById('myChartMes');
+        }else if(this.type0 == 3){
+            var canvas = document.getElementById('myChartYear');
+        }else if(this.type0 == 4){
+            var canvas = document.getElementById('myChartCustom');
+        }
+        var dataURL = canvas.toDataURL('image/jpeg');
+    
+        var columns = ["Producto", "Cantidad", "Dinero Total($)"];                    
+
+        doc.autoTable(columns, this.productsPDF);
+
+    
+
+        doc.setFontSize(14)
+        doc.setFont('courier');
+        doc.setFontType('bolditalic');
+
+        doc.text(130,10, 'Dinero Total : $'+this.totalMoney.toLocaleString());
+
+
+        doc.addPage();
+        doc.addImage(dataURL, 'JPEG', 5 , 10, 200, 120);
+
+        doc.save('Reporte.pdf');
+
+
+    },
+    cancelPedido(id){
+
+        $.confirm({
+            title: '¡ATENCIÓN!',
+            content: '¿Seguro desea cancelar este pedido?',
+            buttons: {
+                SI:{ 
+                btnClass : 'btn-success',
+                action : function () {
+                   var url = 'cancel/'+id;
+                    axios.put(url)
+                    .then(response => {
+                        vm.getPendientes();
+                        $.notify('Pedido cancelado','success');
+                        
+                    }).catch(error => {
+                        $.notify('Hubo un error al cancelar el pedido.','error');
+                    });
+                }
+                },
+                NO:{ 
+                btnClass : 'btn-danger',
+                action : function () {
+                    return true;
+                }
+             }
+            }
+        });
+        
+        
 
     }
         

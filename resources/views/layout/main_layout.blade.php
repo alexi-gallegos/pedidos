@@ -3,8 +3,8 @@
 <head>
     <!-- CSS -->
    
-    <link rel="stylesheet" href="{{ secure_asset('css/bootstrap.css') }}">
-    <link rel="stylesheet" href="{{ secure_asset('css/app.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.12/css/all.css" integrity="sha384-G0fIWCsCzJIMAVNQPfjH08cyYaUtMwjJwqiRKxxE/rx96Uroj1BtIQ6MLJuheaO9" crossorigin="anonymous">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -47,9 +47,10 @@
                                 <i class="fas fa-chart-bar"></i> Estadisticas
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                              <a class="dropdown-item" href="{{ route('ventas') }}"><i class="fas fa-chart-line"></i> Estadisticas Ventas</a>
+                              <a class="dropdown-item" href="{{ route('ventas') }}"><i class="fas fa-chart-line"></i> Estadisticas Ventas Gráficos</a>
                               
                             </div>
+                            
                           </li>
 
                         <li class="nav-item dropdown mx-2">
@@ -115,9 +116,12 @@
     
 </div> <!-- /container-fluid  -->
     <script src="https://js.pusher.com/4.1/pusher.min.js" defer></script>
-    <script src="{{ secure_asset('js/app.js') }}" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.4.0/jspdf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/2.3.4/jspdf.plugin.autotable.js"></script>
+    <script src="{{ asset('js/app.js') }}" defer></script>
     <script src="https://momentjs.com/downloads/moment-with-locales.js" defer></script>
-    <script src="{{ secure_asset('js/chartjs.js') }}" defer></script>
+    <script src="{{ asset('js/chartjs.js') }}" defer></script>
+    
    
       
 </body>

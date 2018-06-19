@@ -4,14 +4,15 @@
 
 @section('content')
 
-<div id="app">
+<div id="app" v-cloak>
 @include('admin.partials.fecha.fecha_chart')
-    <div class="row">
+    <div id="buttons">
 <button class="btn btn-primary ml-2" @click.prevent="createChart(0)">Ventas del día</button>
 <button class="btn btn-primary ml-2" @click.prevent="createChart(1)">Ventas de la semana</button>
 <button class="btn btn-primary ml-2" @click.prevent="createChart(2)">Ventas del mes</button>
 <button class="btn btn-primary ml-2" @click.prevent="createChart(3)">Ventas del año</button>
 <button class="btn btn-success ml-2" href="#" role="button" data-toggle="modal" data-target="#date">Fecha Personalizada</button>
+<button v-if="productosPDF != ''" class="btn btn-success ml-2" @click.prevent="createPDF">Crear PDF</button>
 </div>
 <div id="canv">
         <canvas id="myChartDia" width="100%" height="38%"></canvas>

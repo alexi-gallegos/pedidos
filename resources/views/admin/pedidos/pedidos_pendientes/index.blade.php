@@ -44,7 +44,7 @@
                 <td>
                     <button class="btn btn-primary" v-if="producto.estado_pedido_id == 1" @click.prevent="entregarPedido(producto.id)">Entregar</button>
                     <button class="btn btn-success" v-if="producto.estado_pedido_id == 2" @click.prevent="finalizarPedido(producto.id,producto.mesa_id)">Finalizar</button>
-                    <button class="btn btn-danger">Cancelar</button>
+                    <button class="btn btn-danger" @click.prevent="cancelPedido(producto.id)">Cancelar</button>
                     <button class="btn btn-primary" role="button" data-toggle="modal" data-target="#show" @click.prevent="showDetalle(producto)">Ver detalles</button>
                 
                 </td>

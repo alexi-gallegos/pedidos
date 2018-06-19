@@ -93,11 +93,19 @@ Route::resource('admin/users','UserController')->except(['show','create','destro
 
 Route::put('/admin/newpass/{id}','UserController@newpass')->name('newpass');
 
-//Ruta ventas
+//Cancelar pedido
+
+Route::put('/admin/cancel/{id}','PedidoController@cancel');
+
+//Ruta estadisticas y reportes
 
 Route::get('/admin/ventas',function(){
     return view('admin.ventas.index');
 })->name('ventas')->middleware('auth','can:admin-only');
+
+Route::get('/admin/reportes',function(){
+    return view('admin.reportes.index');
+})->name('reportes')->middleware('auth','can:admin-only');
 
 //rutas charts
 
