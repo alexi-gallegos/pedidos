@@ -45,8 +45,8 @@
                             <label for="disponibilidad">Disponibilidad</label>
                             <select name="disponibilidad" class="form-control" v-model="fillProduct.disponibilidad">
                                 <option value="" selected hidden>Seleccione Disponibilidad</option>
-                                <option value="0">No disponible</option>
-                                <option value="1">Disponible</option>
+                                <option value="false">No disponible</option>
+                                <option value="true">Disponible</option>
                             </select>
                       </div>
     

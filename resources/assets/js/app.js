@@ -63,7 +63,7 @@ var vm = new Vue({
         newCategory : {'descripcion':''},
         fillCategory:{'descripcion':''},
         newProduct:{'nombre_producto':'', 'valor_unidad': null, 'categoria_id': ''},
-        fillProduct:{'nombre_producto':'', 'valor_unidad': null, 'categoria_id': '', 'disponibilidad':''},
+        fillProduct:{'nombre_producto':'', 'valor_unidad': null, 'categoria_id': '', 'disponibilidad':null},
         newTable : {'numero_mesa':''},
         newUser : {'nombre' : '', 'email':'', 'password':'','admin':0, 'trabajador':''},
         fillUser : {'id':'', 'nombre' : '', 'email':'', 'password':'','admin':0, 'trabajador':''},
