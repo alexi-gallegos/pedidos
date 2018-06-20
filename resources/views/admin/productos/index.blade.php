@@ -36,7 +36,7 @@
                                     <td>@{{ product.nombre_producto }}</td>
                                     <td>$ @{{ product.valor_unidad.toLocaleString() }}</td>
                                     <td>@{{ product.categoria['descripcion'] }}</td>
-                                    <td v-if="product.disponible === 1"><span class="badge badge-success">Disponible</span></td>
+                                    <td v-if="product.disponible == true"><span class="badge badge-success">Disponible</span></td>
                                     <td v-else><span class="badge badge-danger">No Disponible</span></td>
                                     <td>
                                         <td width="10px">
