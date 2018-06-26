@@ -20,6 +20,7 @@ class Pedido extends Model
     public function mesa(){
         return $this->belongsTo(Mesa::class,'mesa_id');
     }
+    
 
     public function productos(){
         return $this->belongsToMany(Producto::class)

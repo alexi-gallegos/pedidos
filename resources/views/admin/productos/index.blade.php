@@ -55,3 +55,9 @@
     </div>
 
 @endsection
+
+@section('scriptspages')
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.10/lodash.js"></script>
+    
+@endsection
