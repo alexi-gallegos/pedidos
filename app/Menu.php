@@ -13,6 +13,7 @@ class Menu extends Model
 
 
     public function productos(){
-        return $this->hasMany(Productos::class);
+        return $this->belongsToMany(Producto::class)
+        ->withPivot(['cantidad','valor_unidad','valor_total']);
     }
 }

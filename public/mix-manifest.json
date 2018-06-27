@@ -1,6 +1,3 @@
 {
     "/js/chartjs.js": "/js/chartjs.js",
-    "/js/app.js": "/js/app.js",
-    "/css/bootstrap.css": "/css/bootstrap.css",
-    "/css/app.css": "/css/app.css"
-}
+    "/js/menu.js": "/js/menu.js",

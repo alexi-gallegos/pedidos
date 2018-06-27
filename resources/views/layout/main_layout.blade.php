@@ -61,6 +61,8 @@
                               <a class="dropdown-item" href="{{ route('productos') }}"><i class="fas fa-utensils"></i> Productos</a>
                               <a class="dropdown-item" href="{{ route('categorias') }}"><i class="fas fa-list-alt"></i> Categorias</a>
                               <a class="dropdown-item" href="{{ route('mesas') }}"><i class="fas fa-th-large"></i> Mesas</a>
+                              <a class="dropdown-item" href="{{ route('menu') }}"><i class="fas fa-bars"></i> Menu</a>
+                              
                             </div>
                           </li>
 

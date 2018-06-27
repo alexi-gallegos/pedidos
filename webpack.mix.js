@@ -23,7 +23,8 @@ mix.scripts(['resources/assets/js/jquery.js',
                 ], 'public/js/app.js'
             );
 
-            mix.js('resources/assets/js/chartjs.js','public/js/chartjs.js');
+mix.js('resources/assets/js/chartjs.js','public/js/chartjs.js');
+mix.js('resources/assets/js/menu.js','public/js/menu.js');
 
 
 

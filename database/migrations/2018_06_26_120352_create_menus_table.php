@@ -17,6 +17,7 @@ class CreateMenusTable extends Migration
             $table->increments('id');
             $table->string('nombre_menu');
             $table->integer('valor_total');
+            $table->boolean('disponibilidad')->default(true);
             $table->boolean('estado')->default(true);
             $table->timestamps();
         });

@@ -89,6 +89,13 @@ Route::get('/admin/usuarios',function(){
 
 Route::resource('admin/users','UserController')->except(['show','create','destroy','edit']);
 
+//Rutas Menu ***********************************************
+Route::get('/admin/menu',function(){
+    return view('admin.menus.index');
+})->name('menu')->middleware('auth','can:admin-only');
+
+Route::resource('admin/menus','MenuController')->except(['show','create','destroy','edit']);
+
 //change password route
 
 Route::put('/admin/newpass/{id}','UserController@newpass')->name('newpass');

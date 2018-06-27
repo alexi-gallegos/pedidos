@@ -17,7 +17,7 @@ class Producto extends Model
         return $this->belongsToMany(Pedido::class);
     }
 
-    public function menu(){
+    public function menus(){
         return $this->belongsToMany(Menu::class);
     }
 }
