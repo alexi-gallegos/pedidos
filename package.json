@@ -23,6 +23,6 @@
         "chart.js": "^2.7.2",
         "fs": "0.0.1-security",
         "highcharts": "^6.1.0",
-        "jspdf": "^1.4.0"
+        "jspdf": "^2.3.1"
     }
 }
